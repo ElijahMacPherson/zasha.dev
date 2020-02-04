@@ -1,0 +1,32 @@
+server {
+  listen 80;
+  server_name zashas.xyz;
+  server_name zasha.dev;
+  server_name www.zashas.xyz;
+  server_name www.zasha.dev;
+
+  location / {
+    proxy_set_header Host          $http_host
+    proxy_set_header X-Real-IP     $remote_addr;
+    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+    proxy_pass       http://127.0.0.1:3000;
+  }
+}
+
+server {
+  listen 80;
+  server_name zashas.xyz;
+  server_name zasha.dev;
+  server_name www.zashas.xyz;
+  server_name www.zasha.dev;
+
+  ssl_certificate     /home/ssi/zasha.dev.cert;
+  ssl_certificate_key /home/ssi/zasha.dev.key;
+
+  location / {
+    proxy_set_header Host          $http_host
+    proxy_set_header X-Real-IP     $remote_addr;
+    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+    proxy_pass       http://127.0.0.1:3000;
+  }
+}
